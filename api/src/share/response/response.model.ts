@@ -1,14 +1,13 @@
 export  class ResponseModel {
-	private code?: number = 200 ;
-	private message?: string = null ;
-	private success?: boolean = null ;
-	private data?: any  = null ;
-	private page?: Page = null ;
-	private timeStamp: number = null ;
+	public code?: number = 200 ;
+	public message?: string = null ;
+	public success?: boolean = null ;
+	public data?: any  = null ;
+	public page?: Page = null ;
+	public timeStamp: number = null ;
 	public build( key: 'code' | 'message' |  'success' | 'data' | 'page' | 'timeStamp' , val: any = ''): ResponseModel {
-		if (key) {
-			this[key] = val ;
-		}
+		if (key)
+			(this[key] as any) = val ;
 		return this ;
 	}
 }
