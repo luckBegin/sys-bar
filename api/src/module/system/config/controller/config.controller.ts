@@ -1,7 +1,6 @@
 import {Get, Controller, Res, HttpStatus, Post, Body, Delete, Param, Put, Query, Headers, Header} from '@nestjs/common';
 import { ApiResponse , ApiUseTags , ApiOperation } from '@nestjs/swagger' ;
 import {SysConfigService} from "..";
-import {Room_area} from "../../../room/area";
 import {AutoAddField} from "../../../../decorator/AutoAddField.decorator";
 
 const urlPrefix: string = '/system/config' ;
@@ -13,7 +12,7 @@ export class  SysConfigController {
 	) {}
 	
 	@Get( urlPrefix )
-	@ApiResponse({ status: 200 , description : '成功' , type : Room_area })
+	@ApiResponse({ status: 200 , description : '成功' , type : '' })
 	@ApiOperation( { title: '获取系统配置'} )
 	async get(
 		@Res() res ,
@@ -25,7 +24,7 @@ export class  SysConfigController {
 	}
 	
 	@Post( urlPrefix )
-	@ApiResponse({ status: 200 , description : '成功' , type : Room_area })
+	@ApiResponse({ status: 200 , description : '成功' , type : '' })
 	@ApiOperation( { title: '添加系统配置'} )
 	@AutoAddField( ( res ,data , createUser ) => { return { createUser }})
 	async post(
@@ -47,7 +46,7 @@ export class  SysConfigController {
 	}
 	
 	@Put( urlPrefix )
-	@ApiResponse({ status: 200 , description : '成功' , type : Room_area })
+	@ApiResponse({ status: 200 , description : '成功' , type : '' })
 	@ApiOperation( { title: '添加系统配置'} )
 	@AutoAddField( ( res ,data , modifyUser ) => { return { modifyUser }})
 	async put(

@@ -35,7 +35,7 @@ class TreeQuerySer {
 		return target.find(query);
 	}
 	
-	async getTree(target: Repository<BasicTreeEntity>, byParentId: boolean, ids: number[] = [0], extraCondition: any = {}) {
+	async getTree(target: Repository< any >, byParentId: boolean, ids: number[] = [0], extraCondition: any = {}) {
 		let parentItem: any = null;
 		
 		if (byParentId) {

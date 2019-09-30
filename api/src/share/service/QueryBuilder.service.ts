@@ -5,7 +5,7 @@ import {Response, ResponseModel} from '../response' ;
 class QueryBuilder {
 	public async query(
 		page: { size: number, page: number }, query: any,
-		target: Repository<BasicTreeEntity>, shopSer?: any, columns?: string,
+		target: Repository<any>, shopSer?: any, columns?: string,
 		extraWhere?: { key: string, value: object }[]
 	): Promise< ResponseModel > {
 		const builder = this.whereBuilder(target, query);
