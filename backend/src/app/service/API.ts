@@ -30,10 +30,6 @@ const gallery = {
 
 const room = {
 	type: host + '/room/type',
-	list: host + '/room/list',
-	area: host + '/room/area',
-	time: host + '/room/time',
-	price: host + '/room/price' ,
 };
 const vip = {
 	type: host + '/vip/type'

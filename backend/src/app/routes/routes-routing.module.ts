@@ -30,8 +30,6 @@ const routes: Routes = [
 			{ path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: 'dashboard' } },
 			{ path: 'system', loadChildren: '../page/system/system.module#SystemModule' },
 			{ path: 'gallery', loadChildren: '../page/gallery/gallery.module#GalleryModule' },
-			{ path: 'room', loadChildren: '../page/room/room.module#RoomModule' },
-			{ path: 'vip', loadChildren: '../page/vip/vip.module#VipModule' },
 			{ path: 'basic', loadChildren: '../page/basic/basic.module#BasicModule' },
 		],
 	},

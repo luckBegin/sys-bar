@@ -97,7 +97,6 @@ export function DELETE(url: string, msg: string = '删除失败,原因 : '): Met
 		const raw = descriptor.value;
 		descriptor.value = function(...arg) {
 			return new Observable(obsr => {
-				console.log(arg);
 				this.http.delete(url + '/' + arg[0].id)
 					.pipe(
 						filter((res: RESPONSE) => {
