@@ -3,7 +3,7 @@ import { ApiResponse , ApiUseTags , ApiOperation } from '@nestjs/swagger' ;
 import {AutoAddField} from "../../../../decorator/AutoAddField.decorator";
 import { RoomAreaService } from '../service/area.service';
 
-const urlPrefix: string = '/room/type' ;
+const urlPrefix: string = '/room/area' ;
 @ApiUseTags('房台类型配置控制器')
 @Controller( urlPrefix )
 export class  RoomAreaController {

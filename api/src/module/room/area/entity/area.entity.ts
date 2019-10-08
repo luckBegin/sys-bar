@@ -11,6 +11,10 @@ export class Room_area extends BasicEntity {
 	@Column()
 	@ApiModelProperty({description: '区域名称' })
 	name: string ;
+
+	@Column()
+	@ApiModelProperty({description:'备注'})
+	remark: string ;
 }
 
 export interface  IQuery {

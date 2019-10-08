@@ -3,13 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm' ;
 import { Room_area , Query , IQuery } from '../entity/area.entity' ;
 import {ResponseModel, Response} from "../../../../share/response";
+import { ShopService } from '../../../system/shop';
+import { QueryBuilderService } from '../../../../share/service';
 
 @Injectable()
 export class RoomAreaService {
 
 	constructor(
 		@InjectRepository( Room_area )
-		private readonly config: Repository< Room_area >
+		private readonly config: Repository< Room_area > ,
+		private readonly shopSer: ShopService
 	) {}
 
 	private async findByCondition( condition: { [key: string]: any }): Promise< Room_area[] > {
@@ -19,8 +22,7 @@ export class RoomAreaService {
 
 	public async query( query: IQuery ): Promise< ResponseModel > {
 		try {
-			const data = await this.findByCondition( query ) ;
-			return Response.success( { data })
+			return await QueryBuilderService.queryAll(query, this.config, this.shopSer) ;
 		} catch (e) {
 			return Response.error({message: e }) ;
 		}

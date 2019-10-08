@@ -1,22 +1,27 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {RoomAreaController , RoomAreaService , Room_area } from './area' ;
-
+import { RoomTypeController , RoomTypeService , Room_type } from './type' ;
+import { SystemModule } from '../system';
 const entities = [
-	Room_area
+	Room_area ,
+	Room_type
 ];
 
 const controllers = [
-	RoomAreaController
+	RoomAreaController ,
+	RoomTypeController
 ];
 
 const services = [
-	RoomAreaService
+	RoomAreaService ,
+	RoomTypeService
 ];
 
 @Module({
 	imports: [
 		TypeOrmModule.forFeature(entities),
+		SystemModule
 	],
 	controllers: [
 		...controllers,

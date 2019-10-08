@@ -1,6 +1,7 @@
-import {Repository, SelectQueryBuilder} from 'typeorm' ;
-import {BasicTreeEntity} from '../entities';
-import {Response, ResponseModel} from '../response' ;
+import { Repository, SelectQueryBuilder } from 'typeorm';
+import { BasicTreeEntity } from '../entities';
+import { Response, ResponseModel } from '../response';
+import { ShopService } from '../../module/system/shop';
 
 class QueryBuilder {
 	public async query(
@@ -88,6 +89,19 @@ class QueryBuilder {
 			});
 		});
 		return builder;
+	}
+
+	public async queryAll(
+		query: any ,
+		target: Repository<any>, shopSer?: ShopService
+	): Promise< ResponseModel> {
+		const shopInfo = (await shopSer.getAll()).data;
+		const data = await target.find( query ) ;
+
+		data.forEach( item => {
+			item['shopInfo'] = shopInfo.find(shopItem => item['shopId'] === shopItem.id) ;
+		});
+		return Response.success({ data });
 	}
 }
 

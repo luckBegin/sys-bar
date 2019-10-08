@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core' ;
-import { MsgService } from '../../../service';
-import { RoomTypeService } from '../../../service/room';
+import { MsgService, RoomAreaService } from '../../../service';
 import { DateUtils } from '@shared/utils';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RESPONSE } from '../../../models';
 import { Service } from '../../../../decorators/service.decorator';
 
 @Component({
-    selector: 'room-type',
-    templateUrl: './type.component.html',
-    styleUrls: ['./type.component.less'],
+    selector: 'room-area',
+    templateUrl: './area.component.html',
+    styleUrls: ['./area.component.less'],
 })
-export class RoomTypeComponent implements OnInit {
+export class RoomAreaComponent implements OnInit {
     constructor(
         private readonly msg: MsgService,
-        private readonly service: RoomTypeService,
+        private readonly service: RoomAreaService,
         private readonly fb: FormBuilder
     ) {
     } ;
@@ -96,7 +95,7 @@ export class RoomTypeComponent implements OnInit {
     };
 
     @Service("service.post" , true , function(){
-        return (this as RoomTypeComponent).form.value ;
+        return (this as RoomAreaComponent).form.value ;
     })
     makeNew( $event : MouseEvent ): void{
         this.msg.success("添加成功") ;
@@ -105,7 +104,7 @@ export class RoomTypeComponent implements OnInit {
     };
 
     @Service("service.put" , true , function(){
-        return (this as RoomTypeComponent).form.value ;
+        return (this as RoomAreaComponent).form.value ;
     })
     save( $event : MouseEvent ): void{
         this.msg.success("修改成功");
@@ -114,7 +113,7 @@ export class RoomTypeComponent implements OnInit {
     };
 
     @Service('service.delete', true, function(){
-        return (this as RoomTypeComponent).form.value ;
+        return (this as RoomAreaComponent).form.value ;
     })
     modalConfirm($event: Event) {
         this.msg.success('删除成功');
