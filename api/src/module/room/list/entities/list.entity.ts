@@ -27,6 +27,14 @@ export class Room_type extends BasicEntity {
 	@Column()
 	@ApiModelProperty({description:'状态'})
 	status: number ;
+
+	@Column()
+	@ApiModelProperty({description:'订单ID'})
+	orderId: number ;
+
+	@Column()
+	@ApiModelProperty({description: '预定ID'})
+	bookId: number ;
 }
 
 export interface  IQuery {
