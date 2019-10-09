@@ -22,16 +22,17 @@ export class RoomListComponent implements OnInit{
 		private readonly service: RoomListService
 	){}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.getList() ;
 		this.getENUMS();
 	}
 
 	public form: FormGroup = this.fb.group({
-		id: [null] ,
-		name: [null , [Validators.required ]] ,
+		id: [ null ] ,
+		name: [ null , [Validators.required ]] ,
 		remark: [ null ] ,
-		areaId: [null , [Validators.required ]] ,
+		areaId: [ null , [Validators.required ]] ,
+		typeId: [ null , [Validators.required ]] ,
 		status: [ null ] ,
 	});
 
@@ -75,6 +76,8 @@ export class RoomListComponent implements OnInit{
 				type: 'edit',
 				title: '编辑',
 				fn: (data) => {
+					data.typeId = data.typeId.toString() ;
+					data.areaId = data.areaId.toString() ;
 					this.form.patchValue(data);
 					this.editMark = true;
 					this.modalShow = true;
@@ -116,14 +119,14 @@ export class RoomListComponent implements OnInit{
 			.subscribe( ( res: RESPONSE ) => {
 				this.tableData.loading = false ;
 				this.tableData.data = res.data ;
-			})
+			});
 	}
 
 	private getENUMS(): void{
 		zip( this.typeSer.get(), this.areaSer.get() )
 			.subscribe( ( res: RESPONSE[] ) => {
-				this.ENUM_Type = AdaptorUtils.reflect(res[0].data , {'name': 'key' , id: 'value '}) ;
-				this.ENUM_Area = AdaptorUtils.reflect(res[1].data , {'name': 'key' , id: 'value '}) ;
+				this.ENUM_Type = AdaptorUtils.reflect(res[0].data , {name: 'key' , id: 'value'}) ;
+				this.ENUM_Area = AdaptorUtils.reflect(res[1].data , {name: 'key' , id: 'value'}) ;
 			});
 	}
 }

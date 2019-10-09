@@ -6,7 +6,7 @@ import { BasicEntity } from '../../../../share/entities' ;
 export class Room_area extends BasicEntity {
 	@Column()
 	@ApiModelProperty({description: '店铺ID'})
-	shopID: number ;
+	shopId: number ;
 
 	@Column()
 	@ApiModelProperty({description: '区域名称' })

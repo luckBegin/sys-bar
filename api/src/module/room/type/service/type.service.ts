@@ -15,13 +15,9 @@ export class RoomTypeService {
 		private readonly shopSer: ShopService
 	) {}
 
-	private cache: ResponseModel = null ;
-
 	public async query( query: IQuery ): Promise< ResponseModel > {
 		try {
-			if( !this.cache )
-				this.cache =  await QueryBuilderService.queryAll( new QueryParam( query ), this.config, this.shopSer) ;
-			return this.cache ;
+			return await QueryBuilderService.queryAll( new QueryParam( query ), this.config, this.shopSer) ;
 		} catch (e) {
 			return Response.error({message: e }) ;
 		}
@@ -30,7 +26,6 @@ export class RoomTypeService {
 	public async post(  data: IQuery ) : Promise < ResponseModel > {
 		try {
 			const entity = this.config.create( data );
-			this.cache = null ;
 			await this.config.insert( entity ) ;
 			return Response.success() ;
 		}  catch (e) {
@@ -41,7 +36,6 @@ export class RoomTypeService {
 	public async delete( id: number ): Promise< ResponseModel > {
 		try {
 			await this.config.delete( id ) ;
-			this.cache = null ;
 			return Response.success() ;
 		} catch (e) {
 			return Response.error( { message:e }) ;
@@ -51,7 +45,6 @@ export class RoomTypeService {
 	public async put( data: IQuery ): Promise< ResponseModel > {
 		try {
 			await this.config.save( data ) ;
-			this.cache = null ;
 			return Response.success() ;
 		} catch (e) {
 			return Response.error({message:e}) ;

@@ -16,8 +16,7 @@ export class ShopService {
 	}
 
 	async getAll( conditions ?: { [key: string]: any }): Promise< ResponseModel > {
-		const data = await this.shop.find(conditions) ;
-		return  Response.success( { data } ) ;
+		return Response.success({ data: await this.shop.find( conditions )}) ;
 	}
 
 	async findByIds( ids: number[] ): Promise< any > {

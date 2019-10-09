@@ -45,7 +45,7 @@ export const AdaptorUtils = {
 				let _obj = {};
 				Object.keys(map).forEach(keys => {
 					if ( item[keys] )
-						_obj[map[keys]] = item[keys];
+						_obj[map[keys]] = item[keys].toString() ;
 				});
 				_arr.push(_obj);
 			});

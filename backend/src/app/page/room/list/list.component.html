@@ -38,6 +38,48 @@
 			</nz-form-item>
 
 			<nz-form-item class='c-formSec'>
+				<nz-form-label [nzSm]="6" nzRequired nzFor="areaId">
+					房台区域
+				</nz-form-label>
+				<nz-form-control [nzSm]="17"  [nzOffset]='1'>
+					<nz-select nzPlaceHolder='请选择房台区域' formControlName="areaId" id="areaId">
+						<nz-option
+								*ngFor = 'let item of ENUM_Area;'
+								[nzValue]="item.value"
+								[nzLabel]="item.key"
+						>
+						</nz-option>
+					</nz-select>
+					<nz-form-explain *ngIf="form.get('areaId').dirty && form.get('areaId').errors">
+					  <span>
+						  房台区域不能为空
+					  </span>
+					</nz-form-explain>
+				</nz-form-control>
+			</nz-form-item>
+
+			<nz-form-item class='c-formSec'>
+				<nz-form-label [nzSm]="6" nzRequired nzFor="typeId">
+					房台类型
+				</nz-form-label>
+				<nz-form-control [nzSm]="17"  [nzOffset]='1'>
+					<nz-select nzPlaceHolder='请选择房台类型' formControlName="typeId" id="typeId">
+						<nz-option
+								*ngFor = 'let item of ENUM_Type;'
+								[nzValue]="item.value"
+								[nzLabel]="item.key"
+						>
+						</nz-option>
+					</nz-select>
+					<nz-form-explain *ngIf="form.get('typeId').dirty && form.get('typeId').errors">
+					  <span>
+						  房台类型不能为空
+					  </span>
+					</nz-form-explain>
+				</nz-form-control>
+			</nz-form-item>
+
+			<nz-form-item class='c-formSec'>
 				<nz-form-label [nzSm]="6" nzFor="remark">
 					备注
 				</nz-form-label>

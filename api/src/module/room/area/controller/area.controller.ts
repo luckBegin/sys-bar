@@ -11,8 +11,7 @@ export class  RoomAreaController {
 		private readonly service: RoomAreaService
 	) {}
 
-
-	@Get(  )
+	@Get()
 	@ApiResponse({ status: 200 , description : '成功' , type : '' })
 	@ApiOperation( { title: '获取类型列表'} )
 	async get(
@@ -24,7 +23,7 @@ export class  RoomAreaController {
 		return res.status( HttpStatus.OK ).send( await this.service.query( query ) ) ;
 	}
 
-	@Post(  )
+	@Post()
 	@ApiResponse({ status: 200 , description : '成功' , type : '' })
 	@ApiOperation( { title: '添加类型'} )
 	@AutoAddField( ( res ,data , createUser ) => { return { createUser }})
@@ -46,7 +45,7 @@ export class  RoomAreaController {
 		return res.status( HttpStatus.OK ).send( await this.service.delete( id )) ;
 	}
 
-	@Put(  )
+	@Put()
 	@ApiResponse({ status: 200 , description : '成功' , type : '' })
 	@ApiOperation( { title: '修改类型'} )
 	@AutoAddField( ( res ,data , modifyUser ) => { return { modifyUser }})

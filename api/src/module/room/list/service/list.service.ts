@@ -24,9 +24,9 @@ export class RoomListService {
 		if( data.success ) {
 			const typeInfo = (await this.typeSer.query( query )).data ;
 			const areaInfo = (await this.areaSer.query( query )).data ;
-			data.data.forEach( item => {
-				item.typeInfo = typeInfo.forEach( subItem => item.typeId === subItem.id ) ;
-				item.areaInfo = areaInfo.forEach( subItem => item.areaId === subItem.id ) ;
+			data.data.forEach( (item) => {
+				item.typeInfo = typeInfo.find( subItem => item.typeId === subItem.id ) ;
+				item.areaInfo = areaInfo.find( subItem => item.areaId === subItem.id ) ;
 			});
 		}
 		return data ;
@@ -35,10 +35,10 @@ export class RoomListService {
 	public async queryAll( query: IQuery ): Promise< ResponseModel > {
 		try {
 			const data = await QueryBuilderService.queryAll(query, this.config, this.shopSer) ;
-
 			if( data.success ) {
 				const typeInfo = (await this.typeSer.query( query )).data ;
 				const areaInfo = (await this.areaSer.query( query )).data ;
+
 				data.data.forEach( item => {
 					item.typeInfo = typeInfo.forEach( subItem => item.typeId === subItem.id ) ;
 					item.areaInfo = areaInfo.forEach( subItem => item.areaId === subItem.id ) ;
