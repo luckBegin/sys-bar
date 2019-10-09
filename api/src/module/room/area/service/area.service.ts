@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common' ;
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm' ;
-import { Room_area , Query , IQuery } from '../entity/area.entity' ;
-import {ResponseModel, Response} from "../../../../share/response";
+import { Repository } from 'typeorm';
+import { IQuery, QueryParam, Room_area } from '../entity/area.entity';
+import { Response, ResponseModel } from '../../../../share/response';
 import { ShopService } from '../../../system/shop';
 import { QueryBuilderService } from '../../../../share/service';
 
@@ -15,14 +15,13 @@ export class RoomAreaService {
 		private readonly shopSer: ShopService
 	) {}
 
-	private async findByCondition( condition: { [key: string]: any }): Promise< Room_area[] > {
-		const query = new Query( condition ) ;
-		return await this.config.find( query ) ;
-	}
-
+	private cache: ResponseModel = null ;
 	public async query( query: IQuery ): Promise< ResponseModel > {
 		try {
-			return await QueryBuilderService.queryAll(query, this.config, this.shopSer) ;
+			if( !this.cache ) {
+				this.cache = await QueryBuilderService.queryAll(new QueryParam(query), this.config, this.shopSer) ;
+			}
+			return this.cache ;
 		} catch (e) {
 			return Response.error({message: e }) ;
 		}
@@ -30,8 +29,9 @@ export class RoomAreaService {
 
 	public async post(  data: IQuery ) : Promise < ResponseModel > {
 		try {
-			const entity = this.config.create( data )
+			const entity = this.config.create( data ) ;
 			await this.config.insert( entity ) ;
+			this.cache = null ;
 			return Response.success() ;
 		}  catch (e) {
 			return Response.error({ message: e }) ;
@@ -41,6 +41,7 @@ export class RoomAreaService {
 	public async delete( id: number ): Promise< ResponseModel > {
 		try {
 			await this.config.delete( id ) ;
+			this.cache = null ;
 			return Response.success() ;
 		} catch (e) {
 			return Response.error( { message:e }) ;
@@ -50,6 +51,7 @@ export class RoomAreaService {
 	public async put( data: IQuery ): Promise< ResponseModel > {
 		try {
 			await this.config.save( data ) ;
+			this.cache = null ;
 			return Response.success() ;
 		} catch (e) {
 			return Response.error({message:e}) ;

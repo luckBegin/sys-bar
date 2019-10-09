@@ -36,7 +36,7 @@ export class  RoomTypeController {
 		return res.status( HttpStatus.OK ).send( await this.service.post( data ) ) ;
 	}
 
-	@Delete( urlPrefix + '/:id')
+	@Delete('/:id')
 	@ApiResponse( { status : 200 , description : '成功'} )
 	@ApiOperation( { title : '删除系统配置' } )
 	async delete(

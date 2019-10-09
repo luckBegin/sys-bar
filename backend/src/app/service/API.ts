@@ -30,7 +30,8 @@ const gallery = {
 
 const room = {
 	type: host + '/room/type',
-	area: host + '/room/area'
+	area: host + '/room/area' ,
+	list: host + '/room/list'
 };
 const vip = {
 	type: host + '/vip/type'

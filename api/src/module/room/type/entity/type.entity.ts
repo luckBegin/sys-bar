@@ -22,11 +22,13 @@ export interface  IQuery {
 	id: number ;
 }
 
-export class Query implements IQuery{
+export class QueryParam implements IQuery{
 	public shopId: number ;
 	public id: number ;
 	constructor( query: { [key: string]: any }) {
 		if( query.shopId )
 			this.shopId = query.shopId;
+		if( query.id )
+			this.id = query.id ;
 	}
 }

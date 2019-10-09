@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common' ;
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm' ;
-import { Room_type , Query , IQuery } from '../entity/type.entity' ;
+import { Room_type , QueryParam , IQuery } from '../entity/type.entity' ;
 import {ResponseModel, Response} from "../../../../share/response";
 import { QueryBuilderService } from '../../../../share/service';
 import { ShopService } from '../../../system/shop';
@@ -15,14 +15,13 @@ export class RoomTypeService {
 		private readonly shopSer: ShopService
 	) {}
 
-	private async findByCondition( condition: { [key: string]: any }): Promise< Room_type[] > {
-		const query = new Query( condition ) ;
-		return await this.config.find( query ) ;
-	}
+	private cache: ResponseModel = null ;
 
 	public async query( query: IQuery ): Promise< ResponseModel > {
 		try {
-			return await QueryBuilderService.queryAll(query, this.config, this.shopSer)
+			if( !this.cache )
+				this.cache =  await QueryBuilderService.queryAll( new QueryParam( query ), this.config, this.shopSer) ;
+			return this.cache ;
 		} catch (e) {
 			return Response.error({message: e }) ;
 		}
@@ -31,7 +30,7 @@ export class RoomTypeService {
 	public async post(  data: IQuery ) : Promise < ResponseModel > {
 		try {
 			const entity = this.config.create( data );
-			console.log( entity ) ;
+			this.cache = null ;
 			await this.config.insert( entity ) ;
 			return Response.success() ;
 		}  catch (e) {
@@ -42,6 +41,7 @@ export class RoomTypeService {
 	public async delete( id: number ): Promise< ResponseModel > {
 		try {
 			await this.config.delete( id ) ;
+			this.cache = null ;
 			return Response.success() ;
 		} catch (e) {
 			return Response.error( { message:e }) ;
@@ -51,6 +51,7 @@ export class RoomTypeService {
 	public async put( data: IQuery ): Promise< ResponseModel > {
 		try {
 			await this.config.save( data ) ;
+			this.cache = null ;
 			return Response.success() ;
 		} catch (e) {
 			return Response.error({message:e}) ;
